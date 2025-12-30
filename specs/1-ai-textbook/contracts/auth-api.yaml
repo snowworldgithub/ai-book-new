@@ -1,0 +1,225 @@
+openapi: 3.0.0
+info:
+  title: Authentication API for AI-Native Textbook
+  description: API for user authentication and profile management
+  version: 1.0.0
+servers:
+  - url: https://api.textbook.example.com
+    description: Production server
+  - url: https://staging-api.textbook.example.com
+    description: Staging server
+
+paths:
+  /auth/signup:
+    post:
+      summary: Register a new user
+      description: Creates a new user account with profile information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - hardware_specs
+                - operating_system
+                - robotics_background
+                - ai_ml_background
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                password:
+                  type: string
+                  format: password
+                  description: User's password
+                hardware_specs:
+                  type: object
+                  properties:
+                    gpu_model:
+                      type: string
+                      description: GPU model (e.g., RTX 4080)
+                    ram_gb:
+                      type: integer
+                      description: RAM in gigabytes
+                    cpu_model:
+                      type: string
+                      description: CPU model
+                operating_system:
+                  type: string
+                  enum: [Windows, Linux, Mac]
+                  description: User's operating system
+                robotics_background:
+                  type: string
+                  enum: [beginner, intermediate, expert]
+                  description: User's robotics experience level
+                ai_ml_background:
+                  type: string
+                  description: User's AI/ML experience level
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: Unique identifier for the user
+                  access_token:
+                    type: string
+                    description: JWT access token
+                  refresh_token:
+                    type: string
+                    description: JWT refresh token
+        '400':
+          description: Invalid input data
+        '409':
+          description: User with email already exists
+
+  /auth/login:
+    post:
+      summary: Authenticate user
+      description: Authenticates user and returns access tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+        '401':
+          description: Invalid credentials
+
+  /auth/profile:
+    get:
+      summary: Get user profile
+      description: Retrieve current user's profile information
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+    put:
+      summary: Update user profile
+      description: Update current user's profile information
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileUpdate'
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User's unique identifier
+        email:
+          type: string
+          format: email
+        hardware_specs:
+          type: object
+          properties:
+            gpu_model:
+              type: string
+            ram_gb:
+              type: integer
+            cpu_model:
+              type: string
+        operating_system:
+          type: string
+          enum: [Windows, Linux, Mac]
+        robotics_background:
+          type: string
+          enum: [beginner, intermediate, expert]
+        ai_ml_background:
+          type: string
+        preferred_difficulty:
+          type: string
+          enum: [beginner, intermediate, expert]
+        time_budget:
+          type: string
+          enum: [constrained, standard, extended]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    UserProfileUpdate:
+      type: object
+      properties:
+        hardware_specs:
+          type: object
+          properties:
+            gpu_model:
+              type: string
+            ram_gb:
+              type: integer
+            cpu_model:
+              type: string
+        operating_system:
+          type: string
+          enum: [Windows, Linux, Mac]
+        robotics_background:
+          type: string
+          enum: [beginner, intermediate, expert]
+        ai_ml_background:
+          type: string
+        preferred_difficulty:
+          type: string
+          enum: [beginner, intermediate, expert]
+        time_budget:
+          type: string
+          enum: [constrained, standard, extended]

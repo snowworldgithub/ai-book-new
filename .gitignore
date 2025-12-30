@@ -1,0 +1,95 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+env/
+.env*
+
+# Docusaurus
+.build/
+.docusaurus/
+.vercel/
+dist/
+build/
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv
+.ENV
+.venv/
+.python-version
+.pytest_cache/
+.coverage
+htmlcov/
+.pytest_cache/
+.pyre/
+.pytype/
+.mypy_cache/
+
+# FastAPI
+*.db
+*.db-journal
+coverage/
+.coverage
+htmlcov/
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+apidoc/
+doc/
+
+# Secrets
+secrets/
+*.key
+*.pem
+*.crt
+*.cert
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage/
+.coverage
+htmlcov/
+.jest/
+.nyc_output/
+
+# Runtime
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+lib-cov
+instrumented/
+
+# Docusaurus specific
+.cache-loader
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*

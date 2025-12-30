@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: Personalization API for AI-Native Textbook
+  description: API for content personalization based on user profiles
+  version: 1.0.0
+servers:
+  - url: https://api.textbook.example.com
+    description: Production server
+  - url: https://staging-api.textbook.example.com
+    description: Staging server
+
+paths:
+  /personalization/get-content:
+    post:
+      summary: Get personalized chapter content
+      description: Retrieve chapter content adapted to user profile
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - chapter_slug
+              properties:
+                user_id:
+                  type: string
+                  description: User identifier for profile lookup
+                chapter_slug:
+                  type: string
+                  description: URL-friendly chapter identifier
+                adaptation_preferences:
+                  type: object
+                  properties:
+                    difficulty_level:
+                      type: string
+                      enum: [beginner, intermediate, expert]
+                      description: Override default difficulty
+                    hardware_focus:
+                      type: string
+                      description: Hardware-specific content focus
+                    time_constraint:
+                      type: string
+                      enum: [constrained, standard, extended]
+                      description: Time availability for learning
+                    robotics_experience:
+                      type: string
+                      enum: [beginner, intermediate, expert]
+                      description: Robotics background override
+                    ai_ml_experience:
+                      type: string
+                      enum: [beginner, intermediate, expert]
+                      description: AI/ML background override
+      responses:
+        '200':
+          description: Personalized content retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizedContent'
+        '404':
+          description: Chapter not found
+
+  /personalization/generate-version:
+    post:
+      summary: Generate specific content version
+      description: Generate a specific version of content for a user
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - chapter_slug
+                - target_level
+              properties:
+                user_id:
+                  type: string
+                  description: User identifier
+                chapter_slug:
+                  type: string
+                  description: Chapter to adapt
+                target_level:
+                  type: string
+                  enum: [beginner, intermediate, expert]
+                  description: Target difficulty level
+                hardware_specs:
+                  $ref: '#/components/schemas/HardwareSpecs'
+                time_budget:
+                  type: string
+                  enum: [constrained, standard, extended]
+                  description: Time availability
+      responses:
+        '200':
+          description: Content version generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizedContent'
+        '400':
+          description: Invalid parameters
+
+  /personalization/profile/{user_id}:
+    get:
+      summary: Get personalization profile
+      description: Retrieve user's personalization settings
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Personalization profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizationProfile'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    PersonalizedContent:
+      type: object
+      properties:
+        chapter_slug:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+          description: The personalized content
+        adaptation_metadata:
+          type: object
+          properties:
+            applied_difficulty:
+              type: string
+              enum: [beginner, intermediate, expert]
+            applied_hardware_focus:
+              type: string
+            applied_time_constraint:
+              type: string
+            content_modifications:
+              type: array
+              items:
+                type: string
+              description: List of modifications applied
+        original_content_length:
+          type: integer
+          description: Length of original content
+        adapted_content_length:
+          type: integer
+          description: Length of adapted content
+
+    PersonalizationProfile:
+      type: object
+      properties:
+        user_id:
+          type: string
+        default_difficulty:
+          type: string
+          enum: [beginner, intermediate, expert]
+        hardware_specs:
+          $ref: '#/components/schemas/HardwareSpecs'
+        time_budget:
+          type: string
+          enum: [constrained, standard, extended]
+        robotics_experience:
+          type: string
+          enum: [beginner, intermediate, expert]
+        ai_ml_experience:
+          type: string
+          enum: [beginner, intermediate, expert]
+        preferred_content_types:
+          type: array
+          items:
+            type: string
+          description: Preferred content types (theoretical, practical, etc.)
+        learning_pace:
+          type: string
+          enum: [slow, standard, fast]
+          description: Preferred learning speed
+
+    HardwareSpecs:
+      type: object
+      properties:
+        gpu_model:
+          type: string
+          description: GPU model (e.g., RTX 4080)
+        ram_gb:
+          type: integer
+          description: RAM in gigabytes
+        cpu_model:
+          type: string
+          description: CPU model
+        operating_system:
+          type: string
+          enum: [Windows, Linux, Mac]

@@ -1,0 +1,204 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Robot-themed accent colors */
+  --robot-primary: #3498db;
+  --robot-secondary: #2ecc71;
+  --robot-accent: #e74c3c;
+  --robot-dark: #2c3e50;
+  --robot-light: #ecf0f1;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Dark mode robot-themed accents */
+  --robot-primary: #5dade2;
+  --robot-secondary: #58d68d;
+  --robot-accent: #ec7063;
+  --robot-dark: #5d6d7e;
+  --robot-light: #85929e;
+}
+
+/* Custom styles for Speckit + Docusaurus documentation */
+
+/* Robot-themed accent colors */
+.robot-accent {
+  color: var(--robot-primary);
+}
+
+.robot-bg {
+  background-color: var(--robot-light);
+}
+
+/* API documentation styling */
+.api-endpoint {
+  background-color: #f8f9fa;
+  border-left: 4px solid var(--robot-primary);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.25rem;
+}
+
+[data-theme='dark'] .api-endpoint {
+  background-color: #2d3748;
+}
+
+.api-method {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--robot-accent);
+}
+
+.api-path {
+  font-family: monospace;
+  background-color: #e9ecef;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+}
+
+[data-theme='dark'] .api-path {
+  background-color: #4a5568;
+}
+
+/* Component documentation styling */
+.component-spec {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+[data-theme='dark'] .component-spec {
+  border-color: #4a5568;
+}
+
+.component-props-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.component-props-table th,
+.component-props-table td {
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+[data-theme='dark'] .component-props-table th,
+[data-theme='dark'] .component-props-table td {
+  border-color: #4a5568;
+}
+
+.component-props-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .component-props-table th {
+  background-color: #2d3748;
+}
+
+/* Code block enhancements */
+.code-block-api-request {
+  border-left: 4px solid var(--robot-secondary);
+}
+
+.code-block-api-response {
+  border-left: 4px solid var(--robot-primary);
+}
+
+/* Speckit generation indicators */
+.generated-content {
+  border-left: 3px solid #ffc107;
+  background-color: #fff3cd;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.25rem;
+}
+
+[data-theme='dark'] .generated-content {
+  background-color: #3a3f4b;
+}
+
+.generated-content::before {
+  content: "🤖 Auto-generated content";
+  display: block;
+  font-weight: bold;
+  color: #856404;
+}
+
+[data-theme='dark'] .generated-content::before {
+  color: #ffc107;
+}
+
+/* Custom admonitions for robotics content */
+.admonition-robotics {
+  border-color: var(--robot-primary);
+}
+
+.admonition-robotics .admonition-heading {
+  color: var(--robot-primary);
+}
+
+.admonition-caution .admonition-heading {
+  color: var(--robot-accent);
+}
+
+/* Navigation enhancements */
+.navbar-robotics {
+  background-color: var(--robot-dark);
+}
+
+/* Sidebar enhancements */
+.sidebar-item-robotics {
+  border-left: 3px solid transparent;
+}
+
+.sidebar-item-robotics:hover {
+  border-left: 3px solid var(--robot-primary);
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Responsive design improvements */
+@media (max-width: 996px) {
+  .api-endpoint {
+    padding: 0.75rem;
+  }
+
+  .component-spec {
+    padding: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .api-endpoint,
+  .component-spec {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+}

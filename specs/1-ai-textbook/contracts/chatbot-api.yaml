@@ -1,0 +1,207 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API for AI-Native Textbook
+  description: API for the RAG-based chatbot system
+  version: 1.0.0
+servers:
+  - url: https://api.textbook.example.com
+    description: Production server
+  - url: https://staging-api.textbook.example.com
+    description: Staging server
+
+paths:
+  /chatbot/query:
+    post:
+      summary: Query the textbook chatbot
+      description: Ask a question about the textbook content
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query_text
+              properties:
+                user_id:
+                  type: string
+                  description: User identifier (optional for analytics)
+                chapter_id:
+                  type: string
+                  description: Current chapter identifier (optional for context)
+                query_text:
+                  type: string
+                  description: The question to ask
+                context_range:
+                  type: string
+                  enum: [chapter, book, custom]
+                  default: book
+                  description: Scope of context to consider
+                selected_text:
+                  type: string
+                  description: Specific text selected by user (for targeted queries)
+      responses:
+        '200':
+          description: Query response successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_text:
+                    type: string
+                    description: The chatbot's response
+                  sources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chapter:
+                          type: string
+                          description: Chapter title
+                        section:
+                          type: string
+                          description: Section within chapter
+                        page_reference:
+                          type: string
+                          description: Page or location reference
+                  confidence_score:
+                    type: number
+                    format: float
+                    minimum: 0
+                    maximum: 1
+                    description: Confidence score of the response
+                  followup_questions:
+                    type: array
+                    items:
+                      type: string
+                    description: Suggested followup questions
+        '400':
+          description: Invalid query format
+        '429':
+          description: Rate limit exceeded
+
+  /chatbot/conversation/start:
+    post:
+      summary: Start a new conversation
+      description: Initialize a new chatbot conversation
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                initial_context:
+                  type: string
+                  description: Initial context for the conversation
+                chapter_id:
+                  type: string
+                  description: Chapter context for the conversation
+      responses:
+        '200':
+          description: Conversation started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversation_id:
+                    type: string
+                    description: Unique identifier for the conversation
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  /chatbot/conversation/{conversation_id}:
+    get:
+      summary: Get conversation history
+      description: Retrieve the history of a specific conversation
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: conversation_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conversation history retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversation_id:
+                    type: string
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChatMessage'
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              chapter:
+                type: string
+              section:
+                type: string
+              page_reference:
+                type: string
+
+    ChatResponse:
+      type: object
+      properties:
+        response_text:
+          type: string
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              chapter:
+                type: string
+              section:
+                type: string
+              page_reference:
+                type: string
+        confidence_score:
+          type: number
+          format: float
+        followup_questions:
+          type: array
+          items:
+            type: string
