@@ -6,7 +6,7 @@ Documentation system for the AI-Native Physical AI & Humanoid Robotics textbook 
 
 This project implements a comprehensive documentation system that automatically generates specifications and documentation from source code, integrated with a modern documentation platform. It's designed specifically for the AI-Native Physical AI & Humanoid Robotics textbook project to provide:
 
-**Latest Update**: Enhanced documentation structure with improved navigation and better code examples (Dec 2025)
+**Latest Update**: Enhanced documentation structure with improved navigation and better code examples (Dec 2025). Vercel deployment enabled.
 
 - **Automated Documentation Generation**: Extracts documentation from code comments and definitions
 - **Multi-Format Documentation**: Tutorials, guides, API references, and specifications
