@@ -131,9 +131,9 @@ robot.setVelocity(velocity);
 
 ## Next Steps
 
-- [Advanced Control Techniques](./advanced-control.md)
-- [Sensor Integration](./sensor-integration.md)
-- [Navigation Systems](./navigation.md)
+- Explore advanced control techniques in the documentation
+- Review sensor integration patterns in the guides
+- Study navigation systems in the tutorial section
 ```
 
 ## AI Integration Guidelines

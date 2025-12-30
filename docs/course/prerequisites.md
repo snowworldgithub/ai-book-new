@@ -50,9 +50,9 @@ While personal robotics hardware is not required, access to:
 
 Students without the above prerequisites are encouraged to complete the following preparation modules:
 
-- [Mathematics for Robotics](/docs/math-robotics) (self-paced)
-- [Python for Robotics](/docs/python-robotics) (2-week intensive)
-- [Introduction to Control Systems](/docs/control-intro) (self-paced)
+- Mathematics for Robotics (self-paced) - covered in the intro section
+- Python for Robotics (2-week intensive) - refer to getting started guide
+- Introduction to Control Systems (self-paced) - available in best practices
 
 ## Assessment
 
