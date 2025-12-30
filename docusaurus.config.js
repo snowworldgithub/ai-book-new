@@ -34,8 +34,9 @@ const config = {
   projectName: 'speckit-docusaurus-docs', // Usually your repo name.
 
   onBrokenLinks: 'warn',
-  
+
   markdown: {
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
