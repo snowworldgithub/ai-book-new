@@ -20,10 +20,13 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://speckit-docusarus-aibook.vercel.app',
+  url: 'https://your-project-name.vercel.app', // Replace with your actual Vercel URL after deployment
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
+  // For Vercel deployments, keep as '/' unless deployed to a subdirectory
   baseUrl: '/',
+  // For proper asset loading on various platforms
+  trailingSlash: undefined,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
