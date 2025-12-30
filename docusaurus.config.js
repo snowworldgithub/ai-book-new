@@ -26,7 +26,7 @@ const config = {
   // For Vercel deployments, keep as '/' unless deployed to a subdirectory
   baseUrl: '/',
   // For proper asset loading on various platforms
-  trailingSlash: false,
+  trailingSlash: true,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
