@@ -3,5 +3,5 @@
   "outputDirectory": "build",
   "installCommand": "npm install",
   "framework": "docusaurus-2",
-  "nodejs": "20.x"
+  "nodeVersion": "20.x"
 }

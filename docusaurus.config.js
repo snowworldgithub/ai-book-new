@@ -20,7 +20,7 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://ai-book.vercel.app',
+  url: 'https://ai-book-new.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   // For Vercel deployments, keep as '/' unless deployed to a subdirectory
@@ -119,12 +119,7 @@ const config = {
     [
       '@docusaurus/plugin-client-redirects',
       {
-        redirects: [
-          {
-            to: '/docs/overview',
-            from: ['/docs', '/docs/intro'],
-          },
-        ],
+        redirects: [],
       },
     ],
   ],
